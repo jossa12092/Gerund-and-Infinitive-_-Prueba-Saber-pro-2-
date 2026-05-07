@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerunds & Infinitives | Practice Platform</title>
+  <style>
+    :root{
+      --bg:#101827;
+      --card:#ffffff;
+      --ink:#172033;
+      --muted:#637083;
+      --brand:#7c3aed;
+      --brand2:#06b6d4;
+      --soft:#eef2ff;
+      --line:#d8deea;
+      --ok:#0f9f6e;
+      --bad:#d92d20;
+      --warn:#f59e0b;
+      --shadow:0 22px 50px rgba(2,8,23,.22);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 15% 5%, rgba(124,58,237,.35), transparent 32%),
+        radial-gradient(circle at 85% 18%, rgba(6,182,212,.28), transparent 28%),
+        linear-gradient(135deg,#0f172a 0%,#111827 45%,#1e1b4b 100%);
+      min-height:100vh;
+    }
+    .wrap{max-width:760px;margin:0 auto;padding:18px 12px 42px}
+    .hero{color:#fff;padding:20px 0 14px;display:block}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:#e0f2fe;padding:8px 12px;border-radius:999px;font-weight:700;font-size:13px}
+    h1{margin:16px 0 8px;font-size:clamp(30px,9vw,44px);line-height:1.05;letter-spacing:-.04em}
+    .subtitle{font-size:16px;line-height:1.5;color:#d9e7ff;max-width:720px;margin:0}
+    .miniStats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;min-width:0;margin-top:16px}
+    .stat{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:14px;text-align:center;color:#fff}
+    .stat strong{font-size:28px;display:block}.stat span{font-size:12px;color:#cbd5e1;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+    .panel{background:var(--card);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(255,255,255,.5)}
+    .start{display:grid;grid-template-columns:1fr;gap:0}.startInfo{padding:24px 18px}.startAside{padding:24px 18px;background:linear-gradient(160deg,#f5f3ff,#ecfeff)}
+    h2{margin:0 0 14px;font-size:26px;letter-spacing:-.02em}.lead{color:var(--muted);line-height:1.6;margin:0 0 18px}
+    .features{display:grid;gap:12px;margin:22px 0}.feature{display:flex;gap:12px;align-items:flex-start;background:#f8fafc;border:1px solid #e5e7eb;border-radius:18px;padding:14px}.feature b{display:block}.feature span:first-child{font-size:22px}.feature small{color:var(--muted)}
+    label{font-weight:800;font-size:13px;color:#334155;display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+    input{width:100%;border:1px solid #cbd5e1;border-radius:16px;padding:15px 16px;font-size:16px;outline:none}input:focus{border-color:var(--brand);box-shadow:0 0 0 4px rgba(124,58,237,.14)}
+    .btn{appearance:none;border:none;border-radius:16px;padding:14px 18px;font-weight:900;font-size:15px;cursor:pointer;transition:.18s transform,.18s opacity,.18s box-shadow;display:inline-flex;align-items:center;justify-content:center;gap:9px}
+    .btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.primary{background:linear-gradient(135deg,var(--brand),#2563eb);color:white;box-shadow:0 14px 22px rgba(37,99,235,.24)}.ghost{background:#f1f5f9;color:#0f172a;border:1px solid #d8e0ec}
+    .exam{display:none}.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 14px;border-bottom:1px solid var(--line);background:#fff;flex-wrap:wrap}.progressShell{height:12px;background:#e2e8f0;border-radius:99px;overflow:hidden;flex:1 1 100%;max-width:none;order:3}.progressFill{height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:.25s width}.counter{font-weight:900;color:#334155;white-space:nowrap}
+    .examBody{display:grid;grid-template-columns:1fr;min-height:620px}.sidebar{background:#f8fafc;border-right:0;border-bottom:1px solid var(--line);padding:18px}.sectionTitle{font-weight:950;color:#111827;margin-bottom:8px}.instruction{font-size:13px;line-height:1.55;color:#64748b}.pill{display:inline-flex;border-radius:999px;background:#ede9fe;color:#5b21b6;font-size:12px;font-weight:900;padding:7px 10px;margin:12px 0}.qgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:14px}.qdot{border:1px solid #cbd5e1;background:#fff;border-radius:9px;height:30px;font-size:12px;font-weight:900;color:#64748b;cursor:default}.qdot.answered{background:#e0f2fe;border-color:#67e8f9;color:#0369a1}.qdot.current{background:#7c3aed;border-color:#7c3aed;color:white;box-shadow:0 7px 16px rgba(124,58,237,.25)}.qdot.locked{background:#fee2e2;border-color:#fca5a5;color:#991b1b}
+    .questionArea{padding:16px}.questionCard{border:1px solid #e2e8f0;border-radius:22px;padding:18px;background:#fff;box-shadow:0 12px 30px rgba(15,23,42,.07)}.contextBox{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:18px;padding:18px;margin-bottom:18px;color:#334155;line-height:1.6}.contextBox h3{margin:0 0 8px;font-size:18px}.qmeta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}.tag{font-size:12px;font-weight:900;padding:7px 10px;border-radius:99px;background:#eef2ff;color:#3730a3}.topic{background:#ecfeff;color:#0e7490}.questionText{font-size:19px;line-height:1.42;font-weight:850;margin:12px 0 16px}.options{display:grid;gap:12px}.option{width:100%;text-align:left;border:2px solid #e2e8f0;background:#fff;border-radius:17px;padding:14px 14px;font-size:16px;line-height:1.35;cursor:pointer;transition:.16s}.option:hover:not(:disabled){border-color:#a78bfa;background:#faf5ff}.option:disabled{cursor:not-allowed}.option.selected{border-color:#7c3aed;background:#f5f3ff;box-shadow:0 0 0 4px rgba(124,58,237,.11)}.option.correct{border-color:#10b981;background:#ecfdf5;box-shadow:0 0 0 4px rgba(16,185,129,.14)}.option.incorrect{border-color:#ef4444;background:#fef2f2;box-shadow:0 0 0 4px rgba(239,68,68,.12)}.letter{font-weight:950;color:#4f46e5;margin-right:8px}.lockMsg{display:none;margin-top:12px;padding:12px 14px;border-radius:14px;background:#fff7ed;color:#9a3412;font-weight:750;font-size:14px}.actions{display:flex;justify-content:flex-end;gap:12px;margin-top:22px}.smallNote{font-size:12px;color:#64748b;margin-top:12px}.results{display:none;padding:30px}.scoreBox{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0}.scoreCard{border-radius:20px;padding:20px;background:#f8fafc;border:1px solid #e2e8f0;text-align:center}.scoreCard strong{display:block;font-size:34px}.scoreCard span{font-size:13px;color:#64748b;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.levelBox{background:linear-gradient(135deg,#eef2ff,#ecfeff);border:1px solid #c7d2fe;border-radius:22px;padding:20px;margin:16px 0}.reviewTable{width:100%;border-collapse:separate;border-spacing:0 8px;font-size:13px}.reviewTable th{text-align:left;color:#475569;padding:8px}.reviewTable td{background:#fff;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:10px;vertical-align:top}.reviewTable td:first-child{border-left:1px solid #e2e8f0;border-radius:12px 0 0 12px;font-weight:900}.reviewTable td:last-child{border-right:1px solid #e2e8f0;border-radius:0 12px 12px 0}.ok{color:var(--ok);font-weight:950}.bad{color:var(--bad);font-weight:950}.security{color:#991b1b;font-weight:950}.hidden{display:none!important}
+    .part1Guide{display:none}.part1Guide h3{margin:0 0 10px;font-size:20px}.sectionIntro{display:none;padding:18px;background:#fff}.sectionIntro.show{display:block}.introCard{border:1px solid #dbe4f0;border-radius:24px;padding:22px;background:linear-gradient(135deg,#f5f3ff,#ecfeff);box-shadow:0 12px 30px rgba(15,23,42,.07)}.introCard h2{font-size:28px;margin-bottom:8px}.introLead{color:#475569;font-weight:750;line-height:1.55;margin:0 0 16px}.introSteps{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0}.introStep{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid #dbe4f0;border-radius:16px;padding:13px}.introStep span{min-width:30px;height:30px;border-radius:10px;background:#7c3aed;color:white;display:flex;align-items:center;justify-content:center;font-weight:950}.introStep b{display:block;color:#3730a3}.introExample{background:#fff;border:1px solid #dbe4f0;border-radius:18px;padding:15px;line-height:1.5;margin:14px 0}.introMini{background:#eef2ff;border:1px solid #c7d2fe;border-radius:16px;padding:12px;color:#312e81;font-weight:850;margin-top:12px}.guideGrid{display:grid;grid-template-columns:1fr;gap:10px}.guideBox{background:#fff;border:1px solid #dbe4f0;border-radius:16px;padding:13px}.guideBox b{display:block;margin-bottom:4px;color:#3730a3}.answerBank{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}.bankItem{background:#fff;border:1px solid #dbe4f0;border-radius:12px;padding:9px;font-size:13px}.bankItem b{color:#4f46e5}.stepQuestion{display:flex;gap:12px;align-items:flex-start}.stepNumber{min-width:36px;height:36px;border-radius:12px;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:950}.part1Task{background:#fff;border:1px solid #dbe4f0;border-radius:18px;padding:16px;margin-top:14px}.part1Task b{color:#3730a3}.feedbackBox{display:none;margin-top:14px;border-radius:18px;padding:15px 16px;font-weight:850;line-height:1.45}.feedbackBox.good{display:block;background:#ecfdf5;border:1px solid #86efac;color:#065f46}.feedbackBox.bad{display:block;background:#fef2f2;border:1px solid #fecaca;color:#991b1b}.feedbackBox small{display:block;margin-top:6px;color:#475569;font-weight:750}
+    .securityOverlay{position:fixed;inset:0;background:rgba(15,23,42,.96);display:none;z-index:9999;align-items:center;justify-content:center;padding:24px}.securityBox{max-width:560px;background:#fff;border-radius:28px;padding:30px;box-shadow:0 30px 80px rgba(0,0,0,.35);text-align:center}.securityBox h2{color:#991b1b;font-size:30px}.securityBox p{color:#475569;line-height:1.55}.securityBox input{text-align:center;font-weight:900;letter-spacing:.08em}.securityReason{background:#fee2e2;border:1px solid #fecaca;color:#991b1b;border-radius:16px;padding:12px;margin:14px 0;font-weight:800}.shake{animation:shake .25s linear 2}@keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-5px)}}
+    @media(max-width:520px){.wrap{padding:12px 8px 32px}.panel{border-radius:22px}.startInfo,.startAside{padding:20px 14px}.stat{padding:10px 6px}.stat strong{font-size:22px}.stat span{font-size:10px}.sidebar{padding:14px}.questionArea{padding:12px}.questionCard{padding:14px;border-radius:20px}.qgrid{grid-template-columns:repeat(10,1fr);gap:4px}.qdot{height:26px;font-size:11px;border-radius:7px}.part1Guide{padding:14px}.contextBox{padding:14px}.actions{display:grid;grid-template-columns:1fr}.btn{width:100%}.securityBox{padding:22px 16px;border-radius:22px}}
+    @media print{body{background:white}.hero,.topbar,.sidebar,.actions,.start,.noPrint,.securityOverlay{display:none!important}.panel{box-shadow:none;border:none}.results{display:block!important}.reviewTable{font-size:11px}.wrap{max-width:none;padding:0}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <div class="badge">🧠 Plataforma HTML + JavaScript · Gerunds & Infinitives</div>
+        <h1>Practice Test<br/>Tipo Cuadernillo</h1>
+        <p class="subtitle">Prueba original con 50 preguntas de selección múltiple, basada en infinitives, gerunds, comprensión lectora, conversaciones cortas y textos con espacios.</p>
+      </div>
+      <div class="miniStats">
+        <div class="stat"><strong>50</strong><span>Questions</span></div>
+        <div class="stat"><strong>A1+</strong><span>Level</span></div>
+        <div class="stat"><strong>5</strong><span>Parts</span></div>
+      </div>
+    </section>
+
+    <main class="panel">
+      <section id="start" class="start">
+        <div class="startInfo">
+          <h2>Antes de iniciar</h2>
+          <p class="lead">Esta plataforma trabaja la intención de una prueba por competencias: cada pregunta presenta una situación y el estudiante debe escoger la opción más adecuada.</p>
+          <div class="features">
+            <div class="feature"><span>🔒</span><div><b>Respuesta bloqueada</b><small>Cuando el estudiante marca una opción, no puede cambiarla.</small></div></div>
+            <div class="feature"><span>➡️</span><div><b>Navegación en una sola dirección</b><small>No se puede regresar a preguntas anteriores ni saltar desde el tablero lateral.</small></div></div>
+            <div class="feature"><span>🛡️</span><div><b>Catchers de seguridad</b><small>Detecta cambio de pestaña, pérdida de foco, salida de página, impresión, clic derecho, combinaciones de teclas y captura de pantalla cuando el navegador lo permite.</small></div></div>
+            <div class="feature"><span>📊</span><div><b>Resultado final</b><small>Al terminar, muestra nota, porcentaje, aciertos, errores y revisión.</small></div></div>
+          </div>
+        </div>
+        <div class="startAside">
+          <h2>Datos del intento</h2>
+          <p class="lead">Escribe el nombre del estudiante para generar el reporte final.</p>
+          <label for="studentName">Nombre del estudiante</label>
+          <input id="studentName" placeholder="Example: Laura Martínez" autocomplete="off" />
+          <div style="height:14px"></div>
+          <button id="startBtn" class="btn primary" style="width:100%">Start Test</button>
+          <p class="smallNote">Recomendación: usar pantalla completa del navegador para mayor concentración.</p>
+        </div>
+      </section>
+
+      <section id="exam" class="exam">
+        <div class="topbar">$1</div>
+        <div id="sectionIntro" class="sectionIntro"></div>
+        <div class="examBody" id="examBody">
+          <aside class="sidebar">
+            <div class="sectionTitle" id="sideSection">Part 1</div>
+            <div class="instruction" id="sideInstruction"></div>
+            <div class="pill" id="answeredPill">0 / 50 answered</div>
+            <div class="qgrid" id="qgrid"></div>
+            <p class="smallNote">Las respuestas quedan guardadas y bloqueadas después del primer clic.</p>
+          </aside>
+          <section class="questionArea">
+            <div class="questionCard">
+              <div class="qmeta">
+                <span class="tag" id="partTag">PART 1</span>
+                <span class="tag topic" id="topicTag">Topic</span>
+              </div>
+              <div id="part1Guide" class="part1Guide hidden"></div>
+              <div id="contextBox" class="contextBox hidden"></div>
+              <div class="questionText" id="questionText"></div>
+              <div class="options" id="options"></div>
+              <div id="feedbackBox" class="feedbackBox"></div>
+              <div class="lockMsg" id="lockMsg">Respuesta marcada. Esta opción ya no se puede cambiar.</div>
+              <div class="actions">
+                <button id="nextBtn" class="btn primary">Next →</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="results" class="results">
+        <h2>Final Report</h2>
+        <p class="lead" id="studentLine"></p>
+        <div class="scoreBox">
+          <div class="scoreCard"><strong id="scoreNum">0/50</strong><span>Correct answers</span></div>
+          <div class="scoreCard"><strong id="percentNum">0%</strong><span>Percentage</span></div>
+          <div class="scoreCard"><strong id="gradeNum">0.0</strong><span>Grade / 5.0</span></div>
+        </div>
+        <div class="levelBox" id="levelBox"></div>
+        <div class="actions noPrint">
+          <button id="restartBtn" class="btn ghost">Restart</button>
+          <button onclick="window.print()" class="btn primary">Print / Save PDF</button>
+        </div>
+        <h2 style="margin-top:26px">Review</h2>
+        <div style="overflow:auto">
+          <table class="reviewTable">
+            <thead>
+              <tr><th>#</th><th>Part</th><th>Topic</th><th>Your answer</th><th>Correct</th><th>Result</th><th>Explanation</th></tr>
+            </thead>
+            <tbody id="reviewBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="securityOverlay" class="securityOverlay">
+    <div class="securityBox" id="securityBox">
+      <h2>Intento bloqueado</h2>
+      <p>Se activó un catcher de seguridad. La pregunta actual queda registrada como incorrecta y el intento continuará en la siguiente pregunta cuando se ingrese el código de desbloqueo.</p>
+      <div id="securityReason" class="securityReason">Evento detectado</div>
+      <label for="unlockCode">Código de desbloqueo</label>
+      <input id="unlockCode" type="password" placeholder="Ingrese el código" autocomplete="off" />
+      <div style="height:14px"></div>
+      <button id="unlockBtn" class="btn primary" style="width:100%">Unlock and continue</button>
+      <p class="smallNote">Solicite el código de desbloqueo al docente responsable.</p>
+    </div>
+  </div>
+
+<script>
+const ACCESS_CODE = '1991';
+const sectionGuides = {
+  'PART 1': {
+    title: 'PART 1 · Grammar Detective',
+    lead: 'In this section, you will not match words. You will read three complete sentences and choose the sentence that is grammatically correct.',
+    steps: [
+      ['Read the grammar focus', 'Look at the verb or structure in bold: want, enjoy, plan, avoid, can, too + adjective, etc.'],
+      ['Compare A, B and C', 'Only one sentence is correct. Pay attention to to + verb, verb + ing, and base verb after modals.'],
+      ['Choose one answer', 'After you click, the platform immediately tells you if your answer is correct or incorrect. You cannot change it.']
+    ],
+    example: '<b>Example</b><br>A. She enjoys to read books.<br>B. She enjoys reading books.<br>C. She enjoy reading books.<br><br><b>Correct answer: B</b>, because after <b>enjoy</b> we use <b>verb + ing</b>.',
+    note: 'Your task: choose the grammatically correct sentence.'
+  },
+  'PART 2': {
+    title: 'PART 2 · Short Conversations',
+    lead: 'In this section, you will complete short conversations. Choose the answer that sounds natural and is grammatically correct.',
+    steps: [
+      ['Read the question', 'Understand what the first speaker is asking or saying.'],
+      ['Choose the best reply', 'The answer must fit the situation and use the correct grammar.'],
+      ['Check your feedback', 'The platform shows correct or incorrect immediately after your selection.']
+    ],
+    example: '<b>Example</b><br>Why do you study English?<br>A. To improve my future opportunities.<br>B. Improving my future opportunities.<br>C. I improving future opportunities.<br><br><b>Correct answer: A</b>, because <b>to improve</b> expresses purpose.',
+    note: 'Your task: complete the conversation naturally.'
+  },
+  'PART 3': {
+    title: 'PART 3 · Text with Gaps',
+    lead: 'In this section, you will read a short text with missing words. Choose the option that completes each blank correctly.',
+    steps: [
+      ['Read the sentence', 'Look at the words before and after the blank.'],
+      ['Identify the structure', 'Decide if the answer needs to + verb, verb + ing, or base verb.'],
+      ['Select the option', 'Choose A, B or C. The answer is locked after your click.']
+    ],
+    example: '<b>Example</b><br>Maya wants ____ English this year.<br>A. to learn<br>B. learning<br>C. learn<br><br><b>Correct answer: A</b>, because after <b>want</b> we use <b>to + verb</b>.',
+    note: 'Your task: complete each blank according to the grammar context.'
+  },
+  'PART 4': {
+    title: 'PART 4 · Reading Comprehension',
+    lead: 'In this section, you will read an article and answer comprehension questions.',
+    steps: [
+      ['Read the text carefully', 'Focus on the main idea, details and purpose.'],
+      ['Read each question', 'Look for information in the text before choosing.'],
+      ['Choose the best answer', 'Some options may look possible, but only one is supported by the text.']
+    ],
+    example: '<b>Example</b><br>If the text says “students watch videos to learn pronunciation”, the correct answer to “Why do students watch videos?” is: <b>To learn pronunciation</b>.',
+    note: 'Your task: answer according to the text, not only according to grammar.'
+  },
+  'PART 5': {
+    title: 'PART 5 · Second Text with Gaps',
+    lead: 'In this section, you will complete another text. It combines gerunds, infinitives and classroom situations.',
+    steps: [
+      ['Read the full idea', 'Do not answer only by looking at one word. Read the sentence.'],
+      ['Use the grammar clue', 'For example: after a preposition, use verb + ing; after agree, use to + verb.'],
+      ['Answer and continue', 'The feedback appears immediately, and then you can move to the next question.']
+    ],
+    example: '<b>Example</b><br>They agreed ____ again at home.<br>A. to practice<br>B. practicing<br>C. practice<br><br><b>Correct answer: A</b>, because after <b>agree</b> we use <b>to + verb</b>.',
+    note: 'Your task: complete the text with the correct grammatical form.'
+  }
+};
+
+let seenSectionGuides = {};
+
+const articleContext = `<h3>An English Club with Clear Goals</h3>
+<p>At San Gabriel University, a small group of students decided to create an English club. They wanted to practice speaking in a relaxed place because many students felt nervous in regular classes. The club meets every Friday afternoon in a classroom near the library.</p>
+<p>At the beginning, only eight students came. Now, more than thirty students participate. They enjoy playing vocabulary games, reading short dialogues and working in pairs. The teachers do not give long grammar explanations. Instead, they ask students to use English to solve simple tasks.</p>
+<p>Every meeting has a purpose. Students watch short videos to learn pronunciation, use role plays to practice real conversations and write short notes to remember new expressions. Some students say the club is useful because it gives them a safe space to make mistakes and try again.</p>
+<p>Next month, the club plans to invite international students to share simple stories about their countries. The coordinators hope to help beginners speak with more confidence.</p>`;
+
+const clozeContext1 = `<h3>Maya's English Plan</h3>
+<p>Maya wants (21) ______ English this year. She studies every morning (22) ______ her pronunciation. She enjoys (23) ______ short videos after class. Her teacher asked her (24) ______ five sentences every day. Sometimes she is too tired (25) ______ at night, but she is motivated enough (26) ______. She is interested in (27) ______ online practice with classmates. When she sees a difficult exercise, she does not always know how (28) ______ it. Her teacher says she should (29) ______ slowly and remember (30) ______ her notes before the test.</p>`;
+
+const clozeContext2 = `<h3>A Busy Class Day</h3>
+<p>On Monday, our English teacher prepared a practical class. First, she told us (41) ______ a short dialogue. Then, we worked in pairs because speaking with another person helps us (42) ______ confidence. Some students were afraid of (43) ______ mistakes, but the teacher reminded us that mistakes are useful. After the dialogue, we stopped (44) ______ a short break. Later, we tried (45) ______ a paragraph with infinitives and gerunds. The exercise was difficult, but it was clear enough (46) ______. At the end, we practiced (47) ______ questions and agreed (48) ______ again at home. I forgot (49) ______ my notebook, so I used a piece of paper. Next time, I will remember (50) ______ it.</p>`;
+
+const questions = [
+  {id:1, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'want + infinitive', text:'Choose the sentence with the correct use of <b>want</b>.', options:[['A','I want learning English this year.'],['B','I want to learn English this year.'],['C','I want learn English this year.']], answer:'B', explanation:'After want, use the infinitive: want to learn.'},
+  {id:2, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'enjoy + gerund', text:'Choose the sentence with the correct use of <b>enjoy</b>.', options:[['A','She enjoys watching short videos.'],['B','She enjoys to watch short videos.'],['C','She enjoys watch short videos.']], answer:'A', explanation:'After enjoy, use a gerund: enjoys watching.'},
+  {id:3, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'plan + infinitive', text:'Choose the sentence with the correct use of <b>plan</b>.', options:[['A','They plan traveling in July.'],['B','They plan travel in July.'],['C','They plan to travel in July.']], answer:'C', explanation:'After plan, use the infinitive: plan to travel.'},
+  {id:4, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'preposition + gerund', text:'Choose the sentence with the correct use of a verb after <b>in</b>.', options:[['A','I am interested in to travel abroad.'],['B','I am interested in traveling abroad.'],['C','I am interested in travel abroad.']], answer:'B', explanation:'After a preposition like in, use the gerund: interested in traveling.'},
+  {id:5, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'offer + infinitive', text:'Choose the sentence with the correct use of <b>offer</b>.', options:[['A','My friend offered to help me with the homework.'],['B','My friend offered helping me with the homework.'],['C','My friend offered help me with the homework.']], answer:'A', explanation:'After offer, use the infinitive: offered to help.'},
+  {id:6, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'practice + gerund', text:'Choose the sentence with the correct use of <b>practice</b>.', options:[['A','We practice to speak English in class.'],['B','We practice speaking English in class.'],['C','We practice speak English in class.']], answer:'B', explanation:'Practice is commonly followed by a gerund: practice speaking.'},
+  {id:7, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'adjective + infinitive', text:'Choose the sentence with the correct use of <b>difficult</b>.', options:[['A','This question is difficult to answer.'],['B','This question is difficult answering.'],['C','This question is difficult answer.']], answer:'A', explanation:'After adjectives like difficult, use to + verb: difficult to answer.'},
+  {id:8, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'modal + base verb', text:'Choose the sentence with the correct use of <b>can</b>.', options:[['A','She can to speak English very well.'],['B','She can speaking English very well.'],['C','She can speak English very well.']], answer:'C', explanation:'After can, use the base verb without to: can speak.'},
+  {id:9, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'too + adjective + infinitive', text:'Choose the sentence with the correct use of <b>too + adjective</b>.', options:[['A','The coffee is too hot drinking.'],['B','The coffee is too hot to drink.'],['C','The coffee is too hot drink.']], answer:'B', explanation:'Use too + adjective + to + verb: too hot to drink.'},
+  {id:10, part:'PART 1', section:'Grammar Detective', instruction:'Lea las tres opciones y seleccione la oración que está gramaticalmente correcta.', topic:'avoid + gerund', text:'Choose the sentence with the correct use of <b>avoid</b>.', options:[['A','They avoid to work late on Fridays.'],['B','They avoid work late on Fridays.'],['C','They avoid working late on Fridays.']], answer:'C', explanation:'After avoid, use the gerund: avoid working.'},
+
+  {id:11, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'purpose infinitive', text:'Why do you watch videos in English?', options:[['A','To improve my listening.'],['B','Improving my listening.'],['C','I improving listening.']], answer:'A', explanation:'To + verb expresses purpose: to improve my listening.'},
+  {id:12, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'enjoy + gerund', text:'What do you enjoy doing after class?', options:[['A','I enjoy to read short stories.'],['B','I enjoy reading short stories.'],['C','I enjoy read short stories.']], answer:'B', explanation:'Enjoy is followed by a gerund: enjoy reading.'},
+  {id:13, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'need + infinitive', text:'Do you need to leave now?', options:[['A','Yes, I need leaving.'],['B','Yes, I need leave.'],['C','Yes, I need to go home.']], answer:'C', explanation:'Need is commonly followed by an infinitive: need to go.'},
+  {id:14, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'preposition + gerund', text:'Are you interested in the speaking club?', options:[['A','Yes, I am interested in joining it.'],['B','Yes, I am interested to join it.'],['C','Yes, I interested join it.']], answer:'A', explanation:'After in, use the gerund: interested in joining.'},
+  {id:15, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'adjective + infinitive', text:'Is it hard for you to speak in public?', options:[['A','Yes, it is hard speaking.'],['B','Yes, it is hard to speak.'],['C','Yes, it hard to speaking.']], answer:'B', explanation:'Use adjective + to + verb: hard to speak.'},
+  {id:16, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'verb + object + infinitive', text:'What did the teacher ask you?', options:[['A','She asked me to write a paragraph.'],['B','She asked me writing a paragraph.'],['C','She asked to me write a paragraph.']], answer:'A', explanation:'Use ask + object + infinitive: asked me to write.'},
+  {id:17, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'modal + base verb', text:'Can your brother speak English?', options:[['A','Yes, he can to speak English.'],['B','Yes, he can speak English.'],['C','Yes, he can speaking English.']], answer:'B', explanation:'After can, use the base verb without to: can speak.'},
+  {id:18, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'would like + infinitive', text:'What would you like to do this weekend?', options:[['A','I would like visiting my family.'],['B','I would like visit my family.'],['C','I would like to visit my family.']], answer:'C', explanation:'Would like is followed by an infinitive: would like to visit.'},
+  {id:19, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'go + gerund', text:'What do people usually do at the lake?', options:[['A','They go swimming.'],['B','They go to swimming.'],['C','They go swim.']], answer:'A', explanation:'Use go + gerund for activities: go swimming.'},
+  {id:20, part:'PART 2', section:'Short conversations', instruction:'Complete las conversaciones. Escoja la respuesta que suena natural y gramaticalmente correcta.', topic:'too + adjective + infinitive', text:'Why can’t you drink the coffee now?', options:[['A','It is too hot drinking.'],['B','It is too hot to drink.'],['C','It is too hot drink.']], answer:'B', explanation:'Use too + adjective + to + verb: too hot to drink.'},
+
+  {id:21, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'want + infinitive', context:clozeContext1, text:'Maya wants (21) ______ English this year.', options:[['A','to learn'],['B','learning'],['C','learn']], answer:'A', explanation:'Want is followed by an infinitive: wants to learn.'},
+  {id:22, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'purpose', context:clozeContext1, text:'She studies every morning (22) ______ her pronunciation.', options:[['A','improving'],['B','improve'],['C','to improve']], answer:'C', explanation:'To improve explains the purpose of studying.'},
+  {id:23, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'enjoy + gerund', context:clozeContext1, text:'She enjoys (23) ______ short videos after class.', options:[['A','to watch'],['B','watching'],['C','watch']], answer:'B', explanation:'Enjoy is followed by a gerund: enjoys watching.'},
+  {id:24, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'ask + object + infinitive', context:clozeContext1, text:'Her teacher asked her (24) ______ five sentences every day.', options:[['A','to write'],['B','writing'],['C','write']], answer:'A', explanation:'Use ask + object + infinitive: asked her to write.'},
+  {id:25, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'too + adjective + infinitive', context:clozeContext1, text:'Sometimes she is too tired (25) ______ at night.', options:[['A','studying'],['B','study'],['C','to study']], answer:'C', explanation:'Use too + adjective + to + verb: too tired to study.'},
+  {id:26, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'enough + infinitive', context:clozeContext1, text:'...but she is motivated enough (26) ______.', options:[['A','continuing'],['B','to continue'],['C','continue']], answer:'B', explanation:'Use adjective + enough + to + verb: motivated enough to continue.'},
+  {id:27, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'preposition + gerund', context:clozeContext1, text:'She is interested in (27) ______ online practice with classmates.', options:[['A','doing'],['B','to do'],['C','do']], answer:'A', explanation:'After in, use the gerund: interested in doing.'},
+  {id:28, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'question word + infinitive', context:clozeContext1, text:'...she does not always know how (28) ______ it.', options:[['A','answering'],['B','answer'],['C','to answer']], answer:'C', explanation:'Use question word + infinitive: how to answer.'},
+  {id:29, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'modal + base verb', context:clozeContext1, text:'Her teacher says she should (29) ______ slowly.', options:[['A','to practice'],['B','practice'],['C','practicing']], answer:'B', explanation:'After should, use the base verb: should practice.'},
+  {id:30, part:'PART 3', section:'Text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'remember + infinitive', context:clozeContext1, text:'...and remember (30) ______ her notes before the test.', options:[['A','reviewing'],['B','review'],['C','to review']], answer:'C', explanation:'Remember to review means do not forget to review.'},
+
+  {id:31, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'main idea', context:articleContext, text:'Why did students create the English club?', options:[['A','To practice speaking in a relaxed place.'],['B','To replace all regular English classes.'],['C','To study only grammar rules.']], answer:'A', explanation:'The text says students wanted to practice speaking in a relaxed place.'},
+  {id:32, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'detail', context:articleContext, text:'Where does the club meet?', options:[['A','In a computer room.'],['B','In a classroom near the library.'],['C','In the university cafeteria.']], answer:'B', explanation:'The article says the club meets in a classroom near the library.'},
+  {id:33, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'detail', context:articleContext, text:'How many students came at the beginning?', options:[['A','Eight students.'],['B','Thirty students.'],['C','Fifty students.']], answer:'A', explanation:'At the beginning, only eight students came.'},
+  {id:34, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'inference', context:articleContext, text:'The teachers prefer students to...', options:[['A','copy long grammar explanations.'],['B','use English to solve simple tasks.'],['C','avoid working in pairs.']], answer:'B', explanation:'Teachers ask students to use English to solve simple tasks.'},
+  {id:35, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'purpose', context:articleContext, text:'Why do students watch short videos?', options:[['A','To learn pronunciation.'],['B','To relax after class.'],['C','To avoid speaking.']], answer:'A', explanation:'The article says they watch short videos to learn pronunciation.'},
+  {id:36, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'detail', context:articleContext, text:'What do students use role plays for?', options:[['A','To memorize long texts.'],['B','To practice real conversations.'],['C','To study history.']], answer:'B', explanation:'Role plays help them practice real conversations.'},
+  {id:37, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'vocabulary in context', context:articleContext, text:'In the article, “safe space” means a place where students can...', options:[['A','make mistakes and try again.'],['B','sleep during class.'],['C','take final exams.']], answer:'A', explanation:'The text connects safe space with making mistakes and trying again.'},
+  {id:38, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'future plans', context:articleContext, text:'What does the club plan to do next month?', options:[['A','Invite international students.'],['B','Cancel the Friday meetings.'],['C','Open a new library.']], answer:'A', explanation:'The club plans to invite international students.'},
+  {id:39, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'general understanding', context:articleContext, text:'The club is mainly useful for beginners because it helps them...', options:[['A','speak with more confidence.'],['B','stop studying English.'],['C','avoid group activities.']], answer:'A', explanation:'The coordinators hope to help beginners speak with more confidence.'},
+  {id:40, part:'PART 4', section:'Reading comprehension', instruction:'Lea el artículo y responda las preguntas. Escoja A, B o C.', topic:'gerund recognition', context:articleContext, text:'Which activity in the text uses a gerund correctly?', options:[['A','playing vocabulary games'],['B','to playing vocabulary games'],['C','play vocabulary games to']], answer:'A', explanation:'Playing is a gerund used as an activity.'},
+
+  {id:41, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'tell + object + infinitive', context:clozeContext2, text:'First, she told us (41) ______ a short dialogue.', options:[['A','reading'],['B','to read'],['C','read']], answer:'B', explanation:'Use tell + object + infinitive: told us to read.'},
+  {id:42, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'help + base verb', context:clozeContext2, text:'Speaking with another person helps us (42) ______ confidence.', options:[['A','build'],['B','building'],['C','to building']], answer:'A', explanation:'After help, base verb is common: helps us build confidence.'},
+  {id:43, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'preposition + gerund', context:clozeContext2, text:'Some students were afraid of (43) ______ mistakes.', options:[['A','to make'],['B','make'],['C','making']], answer:'C', explanation:'After of, use a gerund: afraid of making mistakes.'},
+  {id:44, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'stop + infinitive', context:clozeContext2, text:'After the dialogue, we stopped (44) ______ a short break.', options:[['A','to take'],['B','taking'],['C','take']], answer:'A', explanation:'Stopped to take means they stopped another activity in order to take a break.'},
+  {id:45, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'try + infinitive', context:clozeContext2, text:'Later, we tried (45) ______ a paragraph with infinitives and gerunds.', options:[['A','writing'],['B','write'],['C','to write']], answer:'C', explanation:'Tried to write means they made an effort to write.'},
+  {id:46, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'enough + infinitive', context:clozeContext2, text:'The exercise was difficult, but it was clear enough (46) ______.', options:[['A','to understand'],['B','understanding'],['C','understand']], answer:'A', explanation:'Use adjective + enough + to + verb: clear enough to understand.'},
+  {id:47, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'practice + gerund', context:clozeContext2, text:'At the end, we practiced (47) ______ questions.', options:[['A','to ask'],['B','asking'],['C','ask']], answer:'B', explanation:'Practice is followed by a gerund: practiced asking.'},
+  {id:48, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'agree + infinitive', context:clozeContext2, text:'...and agreed (48) ______ again at home.', options:[['A','to practice'],['B','practicing'],['C','practice']], answer:'A', explanation:'Agree is followed by an infinitive: agreed to practice.'},
+  {id:49, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'forget + infinitive', context:clozeContext2, text:'I forgot (49) ______ my notebook, so I used a piece of paper.', options:[['A','bringing'],['B','bring'],['C','to bring']], answer:'C', explanation:'Forgot to bring means the person did not bring it.'},
+  {id:50, part:'PART 5', section:'Second text with gaps', instruction:'Lea el texto y seleccione la palabra correcta para cada espacio.', topic:'remember + infinitive', context:clozeContext2, text:'Next time, I will remember (50) ______ it.', options:[['A','to bring'],['B','bringing'],['C','bring']], answer:'A', explanation:'Remember to bring means do not forget the future action.'}
+];
+
+let current = 0;
+let answers = {};
+let student = '';
+let securityFlags = {};
+let examActive = false;
+let isSecurityLocked = false;
+let suppressSecurity = false;
+let highestAllowedIndex = 0;
+
+const $ = (id)=>{
+  const el = document.getElementById(id);
+  if(el) return el;
+  return {
+    addEventListener:()=>{},
+    removeEventListener:()=>{},
+    focus:()=>{},
+    style:{},
+    classList:{add:()=>{},remove:()=>{},toggle:()=>{},contains:()=>false},
+    set innerHTML(v){}, get innerHTML(){return ''},
+    set textContent(v){}, get textContent(){return ''},
+    set value(v){}, get value(){return ''},
+    set disabled(v){}, get disabled(){return false}
+  };
+};
+
+function initGrid(){
+  const grid = $('qgrid');
+  grid.innerHTML = '';
+  questions.forEach((q, idx)=>{
+    const b = document.createElement('button');
+    b.className = 'qdot';
+    b.textContent = q.id;
+    b.title = 'Question ' + q.id;
+    b.disabled = true;
+    grid.appendChild(b);
+  });
+}
+
+function renderQuestion(){
+  const q = questions[current];
+  if(!seenSectionGuides[q.part] && !isSecurityLocked){
+    showSectionIntro(q.part);
+    return;
+  }
+  $('sectionIntro').classList.remove('show');
+  $('sectionIntro').innerHTML = '';
+  $('examBody').style.display = 'grid';
+  $('counter').textContent = `Question ${q.id} of ${questions.length}`;
+  $('progressFill').style.width = `${(Object.keys(answers).length/questions.length)*100}%`;
+  $('sideSection').textContent = `${q.part}: ${q.section}`;
+  $('sideInstruction').textContent = q.instruction;
+  $('answeredPill').textContent = `${Object.keys(answers).length} / ${questions.length} answered`;
+  $('partTag').textContent = q.part;
+  $('topicTag').textContent = q.topic;
+
+  $('part1Guide').classList.add('hidden');
+  $('part1Guide').innerHTML = '';
+  if(q.part === 'PART 1'){
+    $('questionText').innerHTML = `<div class="stepQuestion"><div class="stepNumber">${q.id}</div><div>${q.text}<br><span style="font-size:14px;color:#64748b;font-weight:700">Choose the correct sentence: A, B or C.</span></div></div>`;
+  }else{
+    $('questionText').innerHTML = q.text;
+  }
+
+  if(q.context){
+    $('contextBox').classList.remove('hidden');
+    $('contextBox').innerHTML = q.context;
+  }else{
+    $('contextBox').classList.add('hidden');
+    $('contextBox').innerHTML = '';
+  }
+
+  const optBox = $('options');
+  optBox.innerHTML = '';
+  const selected = answers[q.id];
+  q.options.forEach(([letter, text])=>{
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="letter">${letter}.</span> ${text}`;
+    if(selected){
+      btn.disabled = true;
+      if(letter === q.answer) btn.classList.add('correct');
+      if(selected === letter){
+        btn.classList.add('selected');
+        if(selected !== q.answer) btn.classList.add('incorrect');
+      }
+    }
+    btn.addEventListener('click', ()=>selectAnswer(q.id, letter));
+    optBox.appendChild(btn);
+  });
+  const feedbackBox = $('feedbackBox');
+  if(selected && selected !== '__SECURITY__'){
+    const isOk = selected === q.answer;
+    feedbackBox.className = `feedbackBox ${isOk ? 'good' : 'bad'}`;
+    feedbackBox.innerHTML = `${isOk ? '✅ Correct answer.' : '❌ Incorrect answer.'}<small>${q.explanation}</small>`;
+  }else{
+    feedbackBox.className = 'feedbackBox';
+    feedbackBox.innerHTML = '';
+  }
+  $('lockMsg').style.display = selected ? 'block' : 'none';
+  $('nextBtn').disabled = !answers[q.id];
+  $('nextBtn').textContent = current === questions.length - 1 ? 'Finish →' : 'Next →';
+  updateGrid();
+}
+
+function showSectionIntro(part){
+  const guide = sectionGuides[part];
+  if(!guide){
+    seenSectionGuides[part] = true;
+    renderQuestion();
+    return;
+  }
+  $('examBody').style.display = 'none';
+  $('sectionIntro').classList.add('show');
+  $('sectionIntro').innerHTML = `
+    <div class="introCard">
+      <span class="tag">${part}</span>
+      <h2>${guide.title}</h2>
+      <p class="introLead">${guide.lead}</p>
+      <div class="introSteps">
+        ${guide.steps.map((s,i)=>`<div class="introStep"><span>${i+1}</span><div><b>${s[0]}</b><small>${s[1]}</small></div></div>`).join('')}
+      </div>
+      <div class="introExample">${guide.example}</div>
+      <div class="introMini">${guide.note}</div>
+      <div class="actions">
+        <button id="startSectionBtn" class="btn primary">Start this part →</button>
+      </div>
+    </div>`;
+  $('startSectionBtn').addEventListener('click', ()=>{
+    seenSectionGuides[part] = true;
+    renderQuestion();
+  });
+}
+
+function selectAnswer(id, letter){
+  if(answers[id]) return;
+  answers[id] = letter;
+  renderQuestion();
+}
+
+function updateGrid(){
+  document.querySelectorAll('.qdot').forEach((b, idx)=>{
+    const qid = questions[idx].id;
+    b.classList.toggle('answered', Boolean(answers[qid]));
+    b.classList.toggle('locked', Boolean(securityFlags[qid]));
+    b.classList.toggle('current', idx === current);
+  });
+  $('progressFill').style.width = `${(Object.keys(answers).length/questions.length)*100}%`;
+  $('answeredPill').textContent = `${Object.keys(answers).length} / ${questions.length} answered`;
+}
+
+function finishExam(){
+  const missing = questions.filter(q=>!answers[q.id]).map(q=>q.id);
+  if(missing.length){
+    alert('Faltan preguntas por responder. Debes continuar en orden hasta completar la prueba.');
+    current = questions.findIndex(q=>q.id === missing[0]);
+    highestAllowedIndex = current;
+    renderQuestion();
+    return;
+  }
+  examActive = false;
+  suppressSecurity = true;
+  const correct = questions.filter(q=>answers[q.id] === q.answer).length;
+  const percent = Math.round((correct/questions.length)*100);
+  const grade = ((correct/questions.length)*5).toFixed(1);
+  $('exam').style.display = 'none';
+  $('results').style.display = 'block';
+  $('studentLine').textContent = `Student: ${student || 'No name'} · Date: ${new Date().toLocaleDateString()}`;
+  $('scoreNum').textContent = `${correct}/${questions.length}`;
+  $('percentNum').textContent = `${percent}%`;
+  $('gradeNum').textContent = grade;
+  let level = '';
+  if(percent >= 90) level = 'Excellent performance. The student recognizes infinitives and gerunds in context and understands the reading sections with high accuracy.';
+  else if(percent >= 75) level = 'Good performance. The student understands most structures, but should review the items marked incorrect.';
+  else if(percent >= 60) level = 'Basic performance. The student identifies several patterns, but needs more practice with gerunds after prepositions and infinitives after specific verbs.';
+  else level = 'Low performance. The student should review the basic rules: verb + ing, to + base verb, modal + base verb, and adjective + infinitive.';
+  $('levelBox').innerHTML = `<b>Interpretation:</b> ${level}`;
+
+  const body = $('reviewBody');
+  body.innerHTML = '';
+  questions.forEach(q=>{
+    const ok = answers[q.id] === q.answer;
+    const tr = document.createElement('tr');
+    const yourText = securityFlags[q.id] ? `Security catcher: ${securityFlags[q.id]}` : getOptionText(q, answers[q.id]);
+    const correctText = getOptionText(q, q.answer);
+    tr.innerHTML = `<td>${q.id}</td><td>${q.part}</td><td>${q.topic}</td><td><b>${answers[q.id] === '__SECURITY__' ? '—' : answers[q.id] + '.'}</b> ${yourText}</td><td><b>${q.answer}.</b> ${correctText}</td><td class="${securityFlags[q.id]?'security':(ok?'ok':'bad')}">${securityFlags[q.id]?'Security lock':(ok?'Correct':'Incorrect')}</td><td>${securityFlags[q.id] ? 'La pregunta fue marcada como incorrecta por activación de seguridad.' : q.explanation}</td>`;
+    body.appendChild(tr);
+  });
+}
+
+function getOptionText(q, letter){
+  const found = q.options.find(o=>o[0] === letter);
+  return found ? found[1] : '';
+}
+
+$('startBtn').addEventListener('click', ()=>{
+  student = $('studentName').value.trim();
+  $('start').style.display = 'none';
+  $('exam').style.display = 'block';
+  current = 0;
+  highestAllowedIndex = 0;
+  seenSectionGuides = {};
+  examActive = true;
+  suppressSecurity = false;
+  initGrid();
+  renderQuestion();
+  try { history.pushState(null, '', location.href); } catch(e) {}
+});
+$('nextBtn').addEventListener('click', ()=>{
+  if(!answers[questions[current].id]) return;
+  if(current < questions.length - 1){
+    current++;
+    highestAllowedIndex = Math.max(highestAllowedIndex, current);
+    renderQuestion();
+  } else finishExam();
+});
+$('finishTopBtn').addEventListener('click', finishExam);
+$('restartBtn').addEventListener('click', ()=>{
+  current = 0; answers = {}; securityFlags = {}; seenSectionGuides = {}; highestAllowedIndex = 0; examActive = false; suppressSecurity = false; $('results').style.display = 'none'; $('start').style.display = 'grid'; $('studentName').value = student;
+});
+
+function triggerSecurity(reason){
+  if(!examActive || suppressSecurity || isSecurityLocked) return;
+  const q = questions[current];
+  answers[q.id] = '__SECURITY__';
+  securityFlags[q.id] = reason;
+  isSecurityLocked = true;
+  $('securityReason').textContent = reason;
+  $('securityOverlay').style.display = 'flex';
+  $('unlockCode').value = '';
+  setTimeout(()=>$('unlockCode').focus(), 100);
+  renderQuestion();
+}
+
+function unlockSecurity(){
+  const code = $('unlockCode').value.trim();
+  if(code !== ACCESS_CODE){
+    $('securityBox').classList.remove('shake');
+    void $('securityBox').offsetWidth;
+    $('securityBox').classList.add('shake');
+    return;
+  }
+  $('securityOverlay').style.display = 'none';
+  isSecurityLocked = false;
+  if(current < questions.length - 1){
+    current++;
+    highestAllowedIndex = Math.max(highestAllowedIndex, current);
+    renderQuestion();
+  }else{
+    finishExam();
+  }
+}
+
+$('unlockBtn').addEventListener('click', unlockSecurity);
+$('unlockCode').addEventListener('keydown', (e)=>{ if(e.key === 'Enter') unlockSecurity(); });
+
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden) triggerSecurity('Cambio de pestaña o minimización de ventana');
+});
+window.addEventListener('blur', ()=>{
+  setTimeout(()=>{ if(examActive && !document.hasFocus()) triggerSecurity('Pérdida de foco de la ventana'); }, 250);
+});
+window.addEventListener('pagehide', ()=>triggerSecurity('Salida o recarga de la página'));
+window.addEventListener('beforeunload', (e)=>{
+  if(examActive && !suppressSecurity){
+    triggerSecurity('Intento de cerrar o recargar la página');
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
+document.addEventListener('focusout', ()=>{
+  setTimeout(()=>{ if(examActive && !document.hasFocus()) triggerSecurity('Salida del área activa del examen'); }, 300);
+});
+document.addEventListener('contextmenu', (e)=>{
+  if(examActive){ e.preventDefault(); triggerSecurity('Clic derecho bloqueado'); }
+});
+document.addEventListener('copy', (e)=>{
+  if(examActive){ e.preventDefault(); triggerSecurity('Intento de copiar contenido'); }
+});
+document.addEventListener('cut', (e)=>{
+  if(examActive){ e.preventDefault(); triggerSecurity('Intento de cortar contenido'); }
+});
+document.addEventListener('paste', (e)=>{
+  if(examActive){ e.preventDefault(); triggerSecurity('Intento de pegar contenido'); }
+});
+document.addEventListener('keydown', (e)=>{
+  if(!examActive) return;
+  const key = e.key.toLowerCase();
+  const blocked =
+    key === 'printscreen' ||
+    key === 'f12' ||
+    (e.ctrlKey && ['c','v','x','p','s','u','r','f','a'].includes(key)) ||
+    (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(key)) ||
+    (e.altKey && ['tab','arrowleft','arrowright'].includes(key)) ||
+    key === 'escape';
+  if(blocked){
+    e.preventDefault();
+    triggerSecurity('Combinación de teclas no permitida');
+  }
+});
+window.addEventListener('popstate', ()=>{
+  if(examActive){
+    try { history.pushState(null, '', location.href); } catch(e) {}
+    triggerSecurity('Intento de regresar con el navegador');
+  }
+});
+setInterval(()=>{
+  if(examActive && !isSecurityLocked && !document.hasFocus()) triggerSecurity('Control periódico: ventana fuera de foco');
+}, 700);
+</script>
+</body>
+</html>
